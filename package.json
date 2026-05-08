@@ -1,0 +1,30 @@
+{
+  "name": "playwright-sentinel",
+  "version": "1.0.0",
+  "description": "Test suite intelligence for Playwright — flakiness scoring, health tracking, and trend reporting.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sebasalmonlo/playwright-sentinel.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Sebasalmonlo/playwright-sentinel/issues"
+  },
+  "homepage": "https://github.com/Sebasalmonlo/playwright-sentinel#readme",
+  "dependencies": {
+    "better-sqlite3": "^12.9.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.6.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^6.0.3"
+  }
+}
