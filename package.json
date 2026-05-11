@@ -7,7 +7,9 @@
   "scripts": {
     "typecheck": "tsc --noEmit",
     "sentinel": "tsx src/cli/index.ts",
-    "test": "playwright test"
+    "test:unit": "node --import tsx --test tests/*.test.ts",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit"
   },
   "repository": {
     "type": "git",

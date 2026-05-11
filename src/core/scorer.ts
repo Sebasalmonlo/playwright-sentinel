@@ -1,4 +1,5 @@
 import { getAllRuns } from './storage.js';
+import type { TestRun } from '../types/index.js';
 
 export interface TestScore {
   test_title: string;
@@ -12,7 +13,11 @@ export interface TestScore {
 
 export function calculateScores(lastN?: number): TestScore[] {
   const runs = getAllRuns();
-  const grouped: Record<string, typeof runs> = {};
+  return calculateScoresFromRuns(runs, lastN);
+}
+
+export function calculateScoresFromRuns(runs: TestRun[], lastN?: number): TestScore[] {
+  const grouped: Record<string, TestRun[]> = {};
 
   for (const run of runs) {
     if (!grouped[run.test_title]) grouped[run.test_title] = [];

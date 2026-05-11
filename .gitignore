@@ -1,5 +1,6 @@
 node_modules/
 dist/
+.sentinel.db
 .env
 .env.local
 *.js.map
@@ -8,3 +9,4 @@ coverage/
 *.log
 npm-debug.log*
 .DS_Store
+playwright-report/
