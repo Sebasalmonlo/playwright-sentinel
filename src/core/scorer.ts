@@ -1,4 +1,4 @@
-import { getAllRuns } from './storage';
+import { getAllRuns } from './storage.js';
 
 export interface TestScore {
   test_title: string;
@@ -10,10 +10,10 @@ export interface TestScore {
   last_run: string;
 }
 
-export function calculateScores(): TestScore[] {
+export function calculateScores(lastN?: number): TestScore[] {
   const runs = getAllRuns();
-
   const grouped: Record<string, typeof runs> = {};
+
   for (const run of runs) {
     if (!grouped[run.test_title]) grouped[run.test_title] = [];
     grouped[run.test_title].push(run);
@@ -26,11 +26,12 @@ export function calculateScores(): TestScore[] {
       (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
     );
 
-    const total = sorted.length;
-    const recent = sorted.slice(0, 5);
+    const limited = lastN ? sorted.slice(0, lastN) : sorted;
+    const total = limited.length;
+    const recent = limited.slice(0, 5);
 
     let failures = 0;
-    for (const run of sorted) {
+    for (const run of limited) {
       if (run.status === 'failed') failures++;
     }
 
@@ -38,13 +39,14 @@ export function calculateScores(): TestScore[] {
     for (const run of recent) {
       if (run.status === 'failed') weightedFailures += 1.5;
     }
-    const olderRuns = sorted.slice(5);
-    for (const run of olderRuns) {
+    for (const run of limited.slice(5)) {
       if (run.status === 'failed') weightedFailures += 1;
     }
 
-    const rawScore = (weightedFailures / Math.max(total, 1)) * 100;
-    const flakiness_score = Math.min(Math.round(rawScore), 100);
+    const flakiness_score = Math.min(
+      Math.round((weightedFailures / Math.max(total, 1)) * 100),
+      100
+    );
 
     scores.push({
       test_title: title,

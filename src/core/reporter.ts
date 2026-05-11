@@ -5,7 +5,7 @@ import type {
   FullConfig,
   Suite
 } from '@playwright/test/reporter';
-import { insertTestRun } from './storage';
+import { insertTestRun } from './storage.js';
 
 class SentinelReporter implements Reporter {
   onBegin(config: FullConfig, suite: Suite) {

@@ -1,6 +1,6 @@
 import Database from 'better-sqlite3';
-import path from 'path';
-import { TestRun } from '../types';
+import path from 'node:path';
+import type { TestRun } from '../types/index.js';
 
 const DB_PATH = path.join(process.cwd(), '.sentinel.db');
 
